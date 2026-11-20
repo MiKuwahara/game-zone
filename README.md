@@ -42,8 +42,10 @@ Initial data exploration identified several data quality issues, including incon
 These issues were evaluated based on their magnitutde and whether they could be reliably resolved.
 
 Key data cleaning actions included:
-* Standardizin 10 purchases timestamps with inconsistent date formats
+* Standardizing 10 purchases timestamps with inconsistent date formats
 * Correcting 61 inconsistent product names.
+* Recategorizing 83 missing marketing channels and 83 missing account creation methods as "Unknown."
+* Correcting 9 missing, inconsistent, or invalid regional values using reference information.
 
 Issues that could not be reliably resolved were retained rather than making unsupported assumptions. These are discussed further in the Assumptions and Caveats section.
 
@@ -118,10 +120,18 @@ Based on the insights and findings above, the following recommendations are inte
 
 # Assumptions and Caveats:
 
-Throughout the analysis, multiple assumptions were made to manage challenges with the data. These assumptions and caveats are noted below:
+Throughout the analysis, several assumptions were made to manage challenges with the data. These assumptions and caveats are noted below:
 
-* Assumption 1 (ex: missing country records were for customers based in the US, and were re-coded to be US citizens)
-  
-* Assumption 1 (ex: data for December 2021 was missing - this was imputed using a combination of historical trends and December 2020 data)
-  
-* Assumption 1 (ex: because 3% of the refund date column contained non-sensical dates, these were excluded from the analysis)
+* **Missing purchase timestamps:** One record contained a missing purchase date. Since the magnitude of this is low and there is no way to infer it, the missing data was left as is.
+
+* **Missing or zero-dollar transactions:** 34 records contained missing or zero-dollar prices. These values were retained due to low in magnitude. However, in reality, we would need to check with stakeholders.
+
+* **Missing marketing channels & account creation methods:** 83 records of marketing channel and 83 records of account creation method were recategorized as "Unknown".
+
+* **Missing country codes:** 37 records contained missing country codes. They were retained due to low volume, but need to check with stakeholders.
+
+* **Duplicate order IDs:** 145 records contained duplicate order IDs. They could be deleted because the magnitude is low. In this case, the records were left as is.
+
+* **Shipping timestamps before purchase timestamps:** Approximately 2,000 records (9.15%) contained shipping timestamps earlier than their corresponding purchase timestamps. These values were retained but should be flagged for further investigation before conducting detailed shipping and fulfillment analysis.
+
+* **Missing and inconsistent regional values:** 9 regional records were corrected using reference information.
